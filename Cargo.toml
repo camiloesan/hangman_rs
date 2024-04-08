@@ -13,15 +13,16 @@ path = "src/server/main.rs"
 name = "client"
 path = "src/client/main.rs"
 
+[[bin]] # Bin to run the HelloWorld gRPC server
+name = "helloworld-server"
+path = "src/server.rs"
+
 [dependencies]
 postgres = "*"
-tonic = "0.10"
+tonic = "0.11"
 prost = "0.12"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 sha2 = "*"
 
 [build-dependencies]
-tonic-build = "0.10"
-
-[dev-dependencies]
-tonic = { version = "0.1", default-features = true, features = ["transport"]}
+tonic-build = "0.11"

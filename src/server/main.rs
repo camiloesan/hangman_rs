@@ -1,6 +1,8 @@
 mod dal;
 
-// use crate::hangman::user_manager_server::UserManagerServer;
+// pub mod hangman {
+//     tonic::include_proto!("hangman");
+// }
 
 fn main() {
     println!("Hello, world!");
