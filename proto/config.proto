@@ -1,0 +1,16 @@
+syntax = "proto3";
+package hangman;
+
+service UserManager {
+    rpc AddUser (AddUserRequest) returns (SuccessStatusResponse);
+}
+
+message AddUserRequest {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message SuccessStatusResponse {
+    bool isSuccess = 1;
+}
