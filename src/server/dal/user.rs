@@ -9,7 +9,7 @@ struct User {
 
 fn get_client() -> Client {
     let client = Client::connect(
-        "postgresql://postgres:postgres@localhost/hangman", 
+        "postgresql://camilo:postgres@localhost/hangman", 
         NoTls
     );
 
@@ -19,7 +19,7 @@ fn get_client() -> Client {
     }
 }
 
-fn add_user(username: String, email: String, password: String) -> u64 {
+pub fn add_user(username: String, email: String, password: String) -> u64 {
     let mut client = get_client();
     let mut hasher = Sha256::new();
     hasher.update(password);
@@ -41,13 +41,15 @@ fn add_user(username: String, email: String, password: String) -> u64 {
     }
 }
 
-fn is_auth_valid(username: String, password: String) -> bool {
+pub fn is_auth_valid(username: String, password: String) -> bool {
     let mut client = get_client();
     let mut hasher = Sha256::new();
     hasher.update(password);
     let hashed_pass = format!("{:X}", hasher.finalize());
 
-    let result = client.query("SELECT COUNT(*) FROM \"user\" WHERE username = $1 and password = $2", &[&username, &hashed_pass]);
+    let result = client.query(
+        "SELECT COUNT(*) FROM \"user\" WHERE username = $1 and password = $2",
+        &[&username, &hashed_pass]);
 
     match result {
         Ok(value) => {

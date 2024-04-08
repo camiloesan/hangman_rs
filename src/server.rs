@@ -1,56 +1,42 @@
-use tonic::{transport::Server, Request, Response, Status};
+// use tonic::{transport::Server, Request, Response, Status};
 
-use hello_world::greeter_server::{Greeter, GreeterServer};
-use hello_world::user_manager_server::{UserManager, UserManagerServer};
-use hello_world::{HelloReply, HelloRequest, UserDataRequest, SuccessReply};
+// use hangmancfg::user_manager_server::{UserManager, UserManagerServer};
+// use hangmancfg::{UserDataRequest, SuccessReply};
 
-pub mod hello_world {
-    tonic::include_proto!("helloworld");
-}
+// pub mod hangmancfg {
+//     tonic::include_proto!("hangmancfg");
+// }
 
-#[derive(Debug, Default)]
-pub struct MyGreeter {}
+// #[derive(Debug, Default)]
+// pub struct HangmanService {}
 
-#[tonic::async_trait]
-impl Greeter for MyGreeter {
-    async fn say_hello(
-        &self,
-        request: Request<HelloRequest>,
-    ) -> Result<Response<HelloReply>, Status> {
-        println!("Got a request: {:?}", request);
+// #[tonic::async_trait]
+// impl UserManager for HangmanService {
+//     async fn add_user(
+//         &self,
+//         _request: Request<UserDataRequest>,
+//     ) -> Result<Response<SuccessReply>, Status> {
 
-        let reply = hello_world::HelloReply {
-            message: format!("Hello {}!", request.into_inner().name),
-        };
+//         let reply = hangmancfg::SuccessReply {
+//             is_success: true,
+//         };
 
-        Ok(Response::new(reply))
-    }
-}
+//         Ok(Response::new(reply))
+//     }
+// }
 
-#[tonic::async_trait]
-impl UserManager for MyGreeter {
-    async fn add_user(
-        &self,
-        _request: Request<UserDataRequest>,
-    ) -> Result<Response<SuccessReply>, Status> {
+// #[tokio::main]
+// async fn main() -> Result<(), Box<dyn std::error::Error>> {
+//     let addr = "[::1]:50051".parse()?;
+//     let greeter = HangmanService::default();
 
-        let reply = hello_world::SuccessReply {
-            is_success: true,
-        };
+//     Server::builder()
+//         .add_service(UserManagerServer::new(greeter))
+//         .serve(addr)
+//         .await?;
+//     Ok(())
+// }
 
-        Ok(Response::new(reply))
-    }
-}
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50051".parse()?;
-    let greeter = MyGreeter::default();
-
-    Server::builder()
-        .add_service(GreeterServer::new(greeter))
-        .serve(addr)
-        .await?;
-
-    Ok(())
+fn main() {
+    println!("Hello, world!");
 }

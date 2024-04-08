@@ -1,12 +1,9 @@
 syntax = "proto3";
-package helloworld;
-
-service Greeter {
-    rpc SayHello (HelloRequest) returns (HelloReply);
-}
+package hangmancfg;
 
 service UserManager {
-    rpc AddUser (UserDataRequest) returns (SuccessReply);
+    rpc AddUser (UserDataRequest) returns (RowsAffectedReply);
+    rpc IsAuthValid (CredentialsRequest) returns (IsSuccessReply);
 }
 
 message UserDataRequest {
@@ -15,14 +12,15 @@ message UserDataRequest {
     string password = 3;
 }
 
-message SuccessReply {
+message RowsAffectedReply {
+    uint64 rows_affected = 1;
+}
+
+message CredentialsRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message IsSuccessReply {
     bool is_success = 1;
-}
-
-message HelloRequest {
-   string name = 1;
-}
-
-message HelloReply {
-    string message = 1;
 }
