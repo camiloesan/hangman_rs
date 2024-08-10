@@ -4,6 +4,8 @@ package hangmancfg;
 service UserManager {
     rpc AddUser (UserDataRequest) returns (RowsAffectedReply);
     rpc IsAuthValid (CredentialsRequest) returns (IsSuccessReply);
+    rpc DeleteUserById (UserIdRequest) returns (RowsAffectedReply);
+    rpc GetUserByUsername (UsernameRequest) returns (UserDataReply);
 }
 
 message UserDataRequest {
@@ -23,4 +25,18 @@ message CredentialsRequest {
 
 message IsSuccessReply {
     bool is_success = 1;
+}
+
+message UserIdRequest {
+    int32 user_id = 1;
+}
+
+message UsernameRequest {
+    string username = 1;
+}
+
+message UserDataReply {
+    int32 user_id = 1;
+    string username = 2;
+    string email = 3;
 }
